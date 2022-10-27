@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const userRoutes = require("./api/routes/tasks");
+const tasksRoutes = require("./api/routes/tasks");
+
 const app = express();
 
 // var cors = require("cors");
@@ -9,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 // app.use(cors());
 
-app.use(userRoutes);
+app.use(tasksRoutes);
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
