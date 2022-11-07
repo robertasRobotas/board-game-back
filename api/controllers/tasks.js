@@ -3,7 +3,15 @@ const TaskSchema = require("../models/taskModel");
 const tasks = [];
 
 module.exports.GET_TASKS = function (req, res) {
-  TaskSchema.find().then((results) => {
+  TaskSchema.find()
+    .sort("task")
+    .then((results) => {
+      return res.status(200).json({ tasks: results });
+    });
+};
+
+module.exports.GET_TASK = function (req, res) {
+  TaskSchema.findOne({ _id: req.params.id }).then((results) => {
     return res.status(200).json({ tasks: results });
   });
 };
@@ -23,13 +31,27 @@ module.exports.INSERT_TASK = function (req, res) {
 };
 
 module.exports.EDIT_TASK = (req, res) => {
-  const index = tasks.findIndex((task) => task.id === req.params.id);
+  TaskSchema.updateOne(
+    { _id: req.params.id },
+    { task: req.body.editedTask }
+  ).then((result) => {
+    return res
+      .status(200)
+      .json({ statusMessage: "Eddited successfully", editedTask: result });
+  });
+};
 
-  tasks[index].task = req.body.editedTask;
+module.exports.CHANGE_TASK_STATUS = async (req, res) => {
+  const currentTask = await TaskSchema.findOne({ _id: req.params.id }).exec();
 
-  console.log("task", tasks);
-
-  res.status(200).json({ statusMessage: "Eddited successfully" });
+  TaskSchema.updateOne(
+    { _id: req.params.id },
+    { isDone: !currentTask.isDone }
+  ).then((result) => {
+    return res
+      .status(200)
+      .json({ statusMessage: "Eddited successfully", editedTask: result });
+  });
 };
 
 module.exports.DELETE_TASK = function (req, res) {
