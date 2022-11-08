@@ -1,6 +1,5 @@
 const TaskSchema = require("../models/taskModel");
-
-const tasks = [];
+const UserSchema = require("../models/userModel");
 
 module.exports.GET_TASKS = function (req, res) {
   TaskSchema.find()
@@ -23,6 +22,15 @@ module.exports.INSERT_TASK = function (req, res) {
   });
 
   task.save().then((result) => {
+    console.log(result._id);
+
+    TaskSchema.updateOne({ _id: result._id }, { id: result._id }).exec();
+
+    UserSchema.updateOne(
+      { _id: req.body.userId },
+      { $push: { taskIds: result._id.toString() } }
+    ).exec();
+
     return res.status(200).json({
       statusMessage: "task was inserted successfully",
       result: result,
