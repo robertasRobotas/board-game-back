@@ -62,12 +62,13 @@ module.exports.CHANGE_TASK_STATUS = async (req, res) => {
   });
 };
 
-module.exports.DELETE_TASK = function (req, res) {
-  TaskSchema.deleteOne({ _id: req.params.id }).then((results) => {
-    console.log("results", results);
-    res.status(200).json({
-      statusMessage: "Item was deleted sucessfuly",
-      deletedItem: results,
-    });
+module.exports.DELETE_TASK = async function (req, res) {
+  const resultFromDb = await TaskSchema.deleteOne({
+    _id: req.params.id,
+  }).exec();
+
+  return res.status(200).json({
+    statusMessage: "Item was deleted sucessfuly",
+    deletedItem: resultFromDb,
   });
 };
