@@ -1,3 +1,5 @@
+const jwt = require("jsonwebtoken");
+
 const TaskSchema = require("../models/taskModel");
 const UserSchema = require("../models/userModel");
 

@@ -13,6 +13,6 @@ router.get("/getUser/:id", GET_USER);
 
 router.get("/getAllUsers", GET_ALL_USERS);
 
-router.get("/login", USER_LOGIN);
+router.post("/login", USER_LOGIN);
 
 module.exports = router;
