@@ -4,6 +4,7 @@ const TaskSchema = require("../models/taskModel");
 const UserSchema = require("../models/userModel");
 
 module.exports.GET_TASKS = function (req, res) {
+  console.log("req.body.userId", req.body.userId);
   TaskSchema.find()
     .sort("task")
     .then((results) => {
