@@ -11,7 +11,7 @@ const {
   DELETE_TASK,
 } = require("../controllers/tasks");
 
-router.get("/getTasks", auth, GET_TASKS);
+router.get("/getTasks", GET_TASKS);
 
 router.get("/getTask/:id", GET_TASK);
 

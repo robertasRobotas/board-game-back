@@ -1,10 +1,20 @@
 const jwt = require("jsonwebtoken");
+// import jwt from 'jsonwebtoken';
+const fetch = require("cross-fetch");
 
 const TaskSchema = require("../models/taskModel");
 const UserSchema = require("../models/userModel");
 
-module.exports.GET_TASKS = function (req, res) {
+module.exports.GET_TASKS = async function (req, res) {
   console.log("req.body.userId", req.body.userId);
+
+  //https://www.npmjs.com/package/cross-fetch
+
+  const data = await fetch("https://api.github.com/users/github");
+  const fetchedData = await data.json();
+
+  console.log(fetchedData);
+
   TaskSchema.find()
     .sort("task")
     .then((results) => {
