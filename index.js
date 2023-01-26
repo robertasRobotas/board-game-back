@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const tasksRoutes = require("./api/routes/tasks");
-const usersRoutes = require("./api/routes/user");
+const eventRoutes = require("./api/routes/event");
+const userRoutes = require("./api/routes/user");
 
 const mongoose = require("mongoose");
 require("dotenv").config();
@@ -18,12 +18,12 @@ mongoose
   .connect(process.env.MONGO_CONNECTION, { useNewUrlParser: true })
   .then(console.log("connected"))
   .catch((err) => {
-    console.log("xxxxxxxxxxxxxxxxxx");
+    console.log("DB connection error:", err);
     console.log(err);
   });
 
-app.use(tasksRoutes);
-app.use(usersRoutes);
+app.use(eventRoutes);
+app.use(userRoutes);
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -35,4 +35,4 @@ app.use((req, res, next) => {
   next();
 });
 
-app.listen(3000);
+app.listen(3002);
