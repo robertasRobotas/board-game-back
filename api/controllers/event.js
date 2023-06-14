@@ -42,7 +42,7 @@ module.exports.GET_EVENT = async function (req, res) {
     const result = await EventSchema.findOne({ _id: req.params.id }).exec();
 
     const games = await EventSchema.find({
-      joinedPlayers: { $all: [req.body.data.userId] },
+      joinedPlayers: { $all: [req.body.userId] },
       _id: result._id,
     }).exec();
 
