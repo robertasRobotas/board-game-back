@@ -9,7 +9,6 @@ const eventSchema = mongoose.Schema({
   address: { type: String, required: true, min: 3 },
   boardgameName: { type: String, required: true, min: 3 },
   boardgameImage: { type: String, required: true, min: 10 },
-  address: { type: String, required: true, min: 3 },
   joinedPlayers: { type: Array, required: true },
 });
 
